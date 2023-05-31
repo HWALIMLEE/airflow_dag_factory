@@ -19,10 +19,10 @@ class TaskFactory:
             return task
         else:
             tasks = []
-            for airflow_task in airflow_tasks:
+            for (airflow_task, next_option) in airflow_tasks:
                 task = airflow_task.operator(
                     dag=dag,
-                    **airflow_tasks.args.to_args()
+                    **airflow_task.args.to_args()
                 )
-                tasks.append(task)
+                tasks.append((task, next_option))
             return tasks
